@@ -9,7 +9,8 @@
 #include <cstdio>
 #include <utility>
 
-extern "C" std::uint8_t sys_sio();
+using sys_sio_function_type = void (*)();
+extern "C" { static inline sys_sio_function_type sys_sio = (sys_sio_function_type)(0xE459); }
 
 namespace sio {
 
@@ -54,18 +55,28 @@ struct Operation : OperationBase<DeviceBusIdV, CommandV, DataTransfer::None, Tim
   }
 };
 
-template<std::uint8_t DeviceBusIdV, std::uint8_t CommandV, DataTransfer DataTransferV, typename BufferT, std::uint8_t TimeoutSecondsCountV = DefaultTimeoutSecondsCount>
+template<std::uint8_t DeviceBusIdV, std::uint8_t CommandV, DataTransfer DataTransferV, std::uint8_t TimeoutSecondsCountV = DefaultTimeoutSecondsCount>
 struct OperationWithDataTransfer : OperationBase<DeviceBusIdV, CommandV, DataTransferV, TimeoutSecondsCountV> {
   using base_type = OperationBase<DeviceBusIdV, CommandV, DataTransferV, TimeoutSecondsCountV>;
-  using buffer_type = BufferT;
 
-  buffer_type data;
+  static bool execute(void* data, std::uint16_t dataSize, std::uint16_t aux = 0, std::uint8_t unitNumber = DefaultUnitNumber) {
+    static_assert (DataTransferV != DataTransfer::None);
+    OS.dcb.dbuf = data;
+    OS.dcb.dbyt = dataSize;
+    return base_type::execute(aux, unitNumber);
+  }
+};
+
+template<std::uint8_t DeviceBusIdV, std::uint8_t CommandV, DataTransfer DataTransferV, typename ValueType, std::uint8_t TimeoutSecondsCountV = DefaultTimeoutSecondsCount>
+struct OperationWithTypedDataTransfer : OperationWithDataTransfer<DeviceBusIdV, CommandV, DataTransferV, TimeoutSecondsCountV> {
+  using base_type = OperationWithDataTransfer<DeviceBusIdV, CommandV, DataTransferV, TimeoutSecondsCountV>;
+  using value_type = ValueType;
+
+  value_type data;
 
   bool execute(std::uint16_t aux = 0, std::uint8_t unitNumber = DefaultUnitNumber) {
     static_assert (DataTransferV != DataTransfer::None);
-    OS.dcb.dbuf = &data;
-    OS.dcb.dbyt = sizeof(data);
-    return base_type::execute(aux, unitNumber);
+    return base_type::execute(&data, sizeof(data), aux, unitNumber);
   }
 };
 

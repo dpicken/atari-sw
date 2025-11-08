@@ -27,6 +27,9 @@ public:
   String() : String("") {
   }
 
+  String(char c) : String(&c, 1) {
+  }
+
   explicit String(const value_type* str) : String(str, strlen(str)) {
   }
 
