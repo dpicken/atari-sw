@@ -1,15 +1,15 @@
-#ifndef sbc_FilerMenu_h
-#define sbc_FilerMenu_h
+#ifndef sbc_filer_Menu_h
+#define sbc_filer_Menu_h
 
-#include "sio/FileSystem.h"
+#include "sbc/sio/FileSystem.h"
 
 #include "menu/Menu.h"
 
-namespace sbc {
+namespace sbc { namespace filer {
 
-class FilerMenu : public menu::Menu {
+class Menu : public ::menu::Menu {
 public:
-  FilerMenu();
+  Menu();
 
   bool hasParentMenu() const override;
   bool hasPreviousPage() const override;
@@ -36,6 +36,6 @@ private:
   sio::FileSystemReadDir m_readDir;
 };
 
-} // namespace sbc
+} } // namespace sbc::filer
 
-#endif // ifndef sbc_FilerMenu_h
+#endif // ifndef sbc_filer_Menu_h

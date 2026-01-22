@@ -1,7 +1,7 @@
 #include "Loader.h"
 
 int main() {
-  xex::Loader loader;
+  sbc::xex::Loader loader;
   loader.run();
   return 0;
 }

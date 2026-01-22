@@ -1,11 +1,11 @@
-#include "FilerMenu.h"
+#include "Menu.h"
 
 #include <cstdio>
 
 int main(int argc, char** argv) {
-  sbc::FilerMenu mainMenu;
+  sbc::filer::Menu menu;
   for (;;) {
-    mainMenu.schedule();
+    menu.schedule();
   }
   return 0;
 }

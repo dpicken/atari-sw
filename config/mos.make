@@ -17,6 +17,6 @@ bin_recipe_lib_flags_post_$(CXX) :=
 
 PHONY: mos-clean
 mos-clean:
-	$(echo_recipe)rm -f $(build_dir)/*/*
+	$(echo_recipe)[ ! -d $(build_dir) ] || find $(build_dir) -type f -delete
 
 clean: mos-clean
