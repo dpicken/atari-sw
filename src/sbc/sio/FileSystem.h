@@ -1,8 +1,9 @@
 #ifndef sbc_sio_FileSystem_h
 #define sbc_sio_FileSystem_h
 
+#include "sdr/FileSystem.h"
+
 #include "sio/Operation.h"
-#include "sio/sdr/FileSystem.h"
 
 namespace sbc { namespace sio {
 

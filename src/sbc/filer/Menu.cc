@@ -1,38 +1,38 @@
-#include "FilerMenu.h"
+#include "Menu.h"
 
-#include "sio/AtariControl.h"
+#include "sbc/sio/AtariControl.h"
 
 #define DEFINE_OPERATION_FAILED_ERROR_MESSAGE(operationDescription) "op failed: " operationDescription
 
-sbc::FilerMenu::FilerMenu()
+sbc::filer::Menu::Menu()
   : m_pageIndex(0) {
   getCurrentDir();
   loadPage();
 }
 
-bool sbc::FilerMenu::hasPreviousPage() const {
+bool sbc::filer::Menu::hasPreviousPage() const {
   return m_pageIndex > 0;
 }
 
-bool sbc::FilerMenu::hasNextPage() const {
+bool sbc::filer::Menu::hasNextPage() const {
   return !m_readDir.data.eos();
 }
 
-bool sbc::FilerMenu::hasParentMenu() const {
+bool sbc::filer::Menu::hasParentMenu() const {
   return true;
 }
 
-void sbc::FilerMenu::onPreviousPage() {
+void sbc::filer::Menu::onPreviousPage() {
   --m_pageIndex;
   loadPage();
 }
 
-void sbc::FilerMenu::onNextPage() {
+void sbc::filer::Menu::onNextPage() {
   ++m_pageIndex;
   loadPage();
 }
 
-menu::Menu* sbc::FilerMenu::onParentMenu() {
+sbc::filer::Menu* sbc::filer::Menu::onParentMenu() {
   if (!sio::FileSystemSelectParentDir::execute()) {
     onError(DEFINE_OPERATION_FAILED_ERROR_MESSAGE("select parent dir"));
     return this;
@@ -42,7 +42,7 @@ menu::Menu* sbc::FilerMenu::onParentMenu() {
   return this;
 }
 
-menu::Menu* sbc::FilerMenu::onSelect() {
+sbc::filer::Menu* sbc::filer::Menu::onSelect() {
   auto itemIndex = getCurrentItemIndex();
   auto dirEntryIndex = (m_pageIndex * max_item_count) + itemIndex;
 
@@ -63,25 +63,25 @@ menu::Menu* sbc::FilerMenu::onSelect() {
   return this;
 }
 
-menu::Menu* sbc::FilerMenu::onAction0() {
+sbc::filer::Menu* sbc::filer::Menu::onAction0() {
   return this;
 }
 
-menu::Menu* sbc::FilerMenu::onAction1() {
+sbc::filer::Menu* sbc::filer::Menu::onAction1() {
   return this;
 }
 
-void sbc::FilerMenu::onDirectoryChange() {
+void sbc::filer::Menu::onDirectoryChange() {
   getCurrentDir();
   m_pageIndex = 0;
   loadPage();
 }
 
-void sbc::FilerMenu::onError(const char* message) {
+void sbc::filer::Menu::onError(const char* message) {
   setMessage(message_type(message));
 }
 
-void sbc::FilerMenu::getCurrentDir() {
+void sbc::filer::Menu::getCurrentDir() {
   if (!m_getCurrentDir.execute()) {
     onError(DEFINE_OPERATION_FAILED_ERROR_MESSAGE("get current dir"));
     return;
@@ -90,7 +90,7 @@ void sbc::FilerMenu::getCurrentDir() {
   setTitle(title_type(m_getCurrentDir.data));
 }
 
-void sbc::FilerMenu::loadPage() {
+void sbc::filer::Menu::loadPage() {
   clearItems();
 
   auto dirEntryIndex = (m_pageIndex * max_item_count);

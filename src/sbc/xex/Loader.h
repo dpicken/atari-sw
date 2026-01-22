@@ -1,9 +1,9 @@
-#ifndef xex_loader_h
-#define xex_loader_h
+#ifndef sbc_xex_Loader_h
+#define sbc_xex_Loader_h
 
 #include "sbc/sio/FileSystem.h"
 
-namespace xex {
+namespace sbc { namespace xex {
 
 class Loader {
 public:
@@ -24,6 +24,6 @@ private:
   ::sbc::sio::FileSystemReadXexSegmentEntry m_readXexSegmentEntry;
 };
 
-} // namespace xex
+} } // namespace sbc::xex
 
-#endif // ifndef xex_loader_h
+#endif // ifndef sbc_xex_Loader_h

@@ -25,13 +25,6 @@ curl --output-dir ./third-party -O -L https://github.com/llvm-mos/llvm-mos-sdk/r
 tar -xf ./third-party/llvm-mos-linux.tar.xz -C ./third-party
 ```
 
-Prepare the `dir2atr` tool:
-
-```
-git -C ./third-party clone https://github.com/HiassofT/AtariSIO.git
-make -C ./third-party/AtariSIO posix
-```
-
 Clone and build:
 
 ```

@@ -6,7 +6,7 @@
 
 #include <atari.h>
 
-void xex::Loader::run() {
+void sbc::xex::Loader::run() {
   constexpr auto initad_v = offsetof(__os, initad);
   constexpr auto runad_v = offsetof(__os, runad);
 
@@ -27,7 +27,7 @@ void xex::Loader::run() {
   ::sbc::sio::AtariControlReset::execute();
 }
 
-bool xex::Loader::loadSegment(std::uint16_t index) {
+bool sbc::xex::Loader::loadSegment(std::uint16_t index) {
   if (!m_readXexSegmentEntry.execute(index)) {
     DEBUG_ONLY(onLoadError("e-err", index));
     return false;
@@ -48,7 +48,7 @@ bool xex::Loader::loadSegment(std::uint16_t index) {
 }
 
 template<std::uint16_t AddressV>
-bool xex::Loader::segmentContainsAddress() {
+bool sbc::xex::Loader::segmentContainsAddress() {
   if (AddressV > m_readXexSegmentEntry.data.segmentAddressLast()) {
     return false;
   }
@@ -62,7 +62,7 @@ bool xex::Loader::segmentContainsAddress() {
 }
 
 template<std::uint16_t AddressV>
-void xex::Loader::Loader::callFnWithUndefinedCallingConvention() {
+void sbc::xex::Loader::Loader::callFnWithUndefinedCallingConvention() {
   asm volatile(
     // TODO: Save a snapshot of llvm-mos's zero page environment.
     // TODO: Restore any snapshot of the application's zero page environment?
@@ -79,13 +79,13 @@ void xex::Loader::Loader::callFnWithUndefinedCallingConvention() {
   );
 }
 
-void xex::Loader::onLoadStatus(const char* const message, std::uint16_t index) {
+void sbc::xex::Loader::onLoadStatus(const char* const message, std::uint16_t index) {
   util::String<6>{message}.print();
   util::String<2>{": "}.print();
   util::String<1>{static_cast<char>('0' + index)}.printLine();
 }
 
-void xex::Loader::onLoadError(const char* const message, std::uint16_t index) {
+void sbc::xex::Loader::onLoadError(const char* const message, std::uint16_t index) {
   onLoadError(message, index);
   for (;;) {}
 }
