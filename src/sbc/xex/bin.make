@@ -1,2 +1,2 @@
 LIB_DIRS += dos
-LDFLAGS := -T config/dos-boot-loader.ld
+LDFLAGS := -T config/xex-boot-loader.ld

@@ -15,12 +15,6 @@ private:
   template<std::uint16_t AddressV>
   bool segmentContainsAddress();
 
-  template<std::uint16_t address>
-  void callFnWithUndefinedCallingConvention();
-
-  void onLoadStatus(const char* const message, std::uint16_t index);
-  void onLoadError(const char* const message, std::uint16_t index);
-
   ::sbc::sio::FileSystemReadXexSegmentEntry m_readXexSegmentEntry;
 };
 

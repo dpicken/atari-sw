@@ -2,7 +2,7 @@
 
 Software for Atari 8-bit projects, see [atari-hw](https://github.com/dpicken/atari-hw) and [atari-fw](https://github.com/dpicken/atari-fw).
 
-- !sbc-boot.atr: A menu-driven interface for the [SFF SD card adapter](https://github.com/dpicken/atari-hw/blob/main/doc/sbc-sd.md)
+- A menu-driven ATR/XEX loader for the [SFF](https://github.com/dpicken/atari-hw/blob/master/doc/sbc.md) and its [SD card adapter](https://github.com/dpicken/atari-hw/blob/master/doc/sbc-sd.md)
   <img src="/jpeg/sbc-menu.jpeg" width="480">
 
 ## Build software

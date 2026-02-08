@@ -1,6 +1,6 @@
 SBC_XEX_LOADER_ATR := $(BUILD_DIR)/sbc/xex/xex
 
-$(SBC_XEX_LOADER_ATR): config/dos-boot-loader.ld
+$(SBC_XEX_LOADER_ATR): config/xex-boot-loader.ld
 
 .PHONY: sbc-xex-loader-distribute
 sbc-xex-loader-distribute: $(SBC_XEX_LOADER_ATR)
