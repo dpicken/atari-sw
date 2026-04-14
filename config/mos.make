@@ -12,6 +12,8 @@ AS = llvm-mc
 ASFLAGS += -triple mos
 ASFLAGS += -filetype=obj
 
+AR = llvm-ar
+
 bin_recipe_lib_flags_pre_$(CXX) :=
 bin_recipe_lib_flags_post_$(CXX) :=
 
