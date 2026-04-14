@@ -11,7 +11,7 @@ void sbc::xex::Loader::run() {
   constexpr auto runad_v = offsetof(__os, runad);
 
   auto callRunAddress = false;
-  for (std::uint16_t index = 0; loadSegment(index); ++index) {
+  for (std::uint8_t index = 0; loadSegment(index); ++index) {
     if (segmentContainsAddress<initad_v>()) {
       call_initad();
     }
@@ -23,7 +23,7 @@ void sbc::xex::Loader::run() {
   ::sbc::sio::AtariControlReset::execute();
 }
 
-bool sbc::xex::Loader::loadSegment(std::uint16_t index) {
+bool sbc::xex::Loader::loadSegment(std::uint8_t index) {
   if (!m_readXexSegmentEntry.execute(index)) {
     return false;
   }

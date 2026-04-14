@@ -4,7 +4,7 @@ os_runad = 0x2E0
 .global zp_context
 zp_context = 0x80
 .global zp_context_size
-zp_context_size = 14
+zp_context_size = 11
 
 .data
 

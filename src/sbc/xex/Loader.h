@@ -10,7 +10,7 @@ public:
   void run();
 
 private:
-  bool loadSegment(std::uint16_t index);
+  bool loadSegment(std::uint8_t index);
 
   template<std::uint16_t AddressV>
   bool segmentContainsAddress();
